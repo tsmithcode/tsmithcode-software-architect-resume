@@ -2,7 +2,7 @@
   "name": "tsmithcode-software-architect-resume",
   "version": "0.1.0",
   "private": false,
-  "description": "Standalone generator and canonical PDF for the TSmithCode software architect resume.",
+  "description": "Standalone generator and canonical PDFs for the TSmithCode and CAD Guardian resume variants.",
   "type": "module",
   "packageManager": "pnpm@10.13.1",
   "scripts": {

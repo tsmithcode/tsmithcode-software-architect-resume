@@ -33,12 +33,13 @@ function experienceMarkup(job) {
 export function resumeHtml(config, logoSrc) {
   const firstPageExperience = config.experience.slice(0, 3);
   const secondPageExperience = config.experience.slice(3);
+  const { labels, theme } = config;
 
   return `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>${config.name} software architect resume</title>
+    <title>${config.documentTitle}</title>
     <style>
       @page {
         size: Letter;
@@ -73,7 +74,7 @@ export function resumeHtml(config, logoSrc) {
         overflow: hidden;
         page-break-after: always;
         background:
-          linear-gradient(90deg, rgba(20, 184, 166, 0.09), transparent 45%),
+          linear-gradient(90deg, ${theme.wash}, transparent 45%),
           #f8fafc;
       }
 
@@ -88,7 +89,7 @@ export function resumeHtml(config, logoSrc) {
         left: 0;
         height: 0.09in;
         content: "";
-        background: linear-gradient(90deg, #14b8a6, #2dd4bf, #0f766e);
+        background: linear-gradient(90deg, ${theme.accent}, ${theme.accentLight}, ${theme.accentDark});
       }
 
       header {
@@ -123,7 +124,7 @@ export function resumeHtml(config, logoSrc) {
 
       .role {
         margin-top: 0.04in;
-        color: #0f766e;
+        color: ${theme.accentDark};
         font-size: 10.6pt;
         font-weight: 800;
       }
@@ -174,7 +175,7 @@ export function resumeHtml(config, logoSrc) {
       }
 
       h2 {
-        color: #0f766e;
+        color: ${theme.accentDark};
         font-size: 8.4pt;
         font-weight: 900;
         letter-spacing: 0.08em;
@@ -229,7 +230,7 @@ export function resumeHtml(config, logoSrc) {
         min-height: 0.86in;
         padding: 0.1in 0.11in;
         border: 1px solid #d8e0ea;
-        border-left: 3px solid #14b8a6;
+        border-left: 3px solid ${theme.accent};
         border-radius: 0.07in;
         background: #ffffff;
       }
@@ -267,7 +268,7 @@ export function resumeHtml(config, logoSrc) {
 
       .job-heading p {
         margin-top: 0.02in;
-        color: #0f766e;
+        color: ${theme.accentDark};
         font-size: 8pt;
         font-weight: 800;
       }
@@ -289,10 +290,10 @@ export function resumeHtml(config, logoSrc) {
       .callout {
         margin-top: 0.18in;
         padding: 0.13in 0.16in;
-        border: 1.5px solid #14b8a6;
+        border: 1.5px solid ${theme.accent};
         border-radius: 0.08in;
-        background: #ecfeff;
-        color: #164e63;
+        background: ${theme.calloutBackground};
+        color: ${theme.calloutText};
         font-size: 8.4pt;
         line-height: 1.35;
       }
@@ -314,27 +315,27 @@ export function resumeHtml(config, logoSrc) {
       <div class="layout">
         <aside>
           <section class="box">
-            <h2>Target roles</h2>
-            <ul>${resumeList(config.targetRoles)}</ul>
+            <h2>${labels.primaryList}</h2>
+            <ul>${resumeList(config.primaryList)}</ul>
           </section>
           <section class="box">
-            <h2>Core tools</h2>
+            <h2>${labels.toolList}</h2>
             <div class="chips">${resumeChips(config.tools)}</div>
           </section>
           <section class="box">
-            <h2>Strong markets</h2>
-            <div class="chips">${resumeChips(config.industries)}</div>
+            <h2>${labels.marketList}</h2>
+            <div class="chips">${resumeChips(config.markets)}</div>
           </section>
         </aside>
 
         <div>
           <section>
-            <h2>Software strengths</h2>
+            <h2>${labels.strengths}</h2>
             <div class="strength-grid">${config.strengths.map(strengthMarkup).join("")}</div>
           </section>
 
           <section>
-            <h2>Recent experience</h2>
+            <h2>${labels.recentExperience}</h2>
             ${firstPageExperience.map(experienceMarkup).join("")}
           </section>
         </div>
@@ -346,7 +347,7 @@ export function resumeHtml(config, logoSrc) {
         <img class="logo" src="${logoSrc}" alt="" />
         <div>
           <h1>${config.name}</h1>
-          <p class="role">Software architecture, modernization, data systems, and delivery ownership</p>
+          <p class="role">${config.secondPageRole}</p>
           <p class="contact">${config.contact.map((item) => `<span>${item}</span>`).join("")}</p>
         </div>
       </header>
@@ -354,36 +355,27 @@ export function resumeHtml(config, logoSrc) {
       <div class="layout">
         <aside>
           <section class="box">
-            <h2>Review signals</h2>
-            <ul>
-              <li>Business-critical system ownership</li>
-              <li>Hands-on architecture and delivery</li>
-              <li>Clear written technical communication</li>
-              <li>Modernization without avoidable disruption</li>
-              <li>Practical support and handoff discipline</li>
-            </ul>
+            <h2>${labels.reviewSignals}</h2>
+            <ul>${resumeList(config.reviewSignals)}</ul>
           </section>
           <section class="box">
-            <h2>Contact path</h2>
-            <ul>
-              <li>Start with role, work model, timeline, and target system.</li>
-              <li>Share sensitive code, records, or internal diagrams only after the right channel is agreed.</li>
-            </ul>
+            <h2>${labels.contactPath}</h2>
+            <ul>${resumeList(config.contactPath)}</ul>
           </section>
           <section class="box">
-            <h2>Handoff artifacts</h2>
+            <h2>${labels.handoff}</h2>
             <ul>${resumeList(config.handoff)}</ul>
           </section>
         </aside>
 
         <div>
           <section>
-            <h2>Earlier experience</h2>
+            <h2>${labels.earlierExperience}</h2>
             ${secondPageExperience.map(experienceMarkup).join("")}
           </section>
 
           <section>
-            <h2>Selected software proof</h2>
+            <h2>${labels.evidence}</h2>
             <div class="proof-grid">
               <article class="box">
                 <ul>${resumeList(config.evidence.slice(0, 2))}</ul>
@@ -395,13 +387,11 @@ export function resumeHtml(config, logoSrc) {
           </section>
 
           <section>
-            <h2>Architecture delivery pattern</h2>
+            <h2>${labels.deliveryPattern}</h2>
             <div class="strength-grid">${config.deliveryPattern.map(strengthMarkup).join("")}</div>
           </section>
 
-          <p class="callout">
-            Public resume content is intentionally generalized. Private code, customer records, internal diagrams, credentials, compensation posture, and employer-confidential implementation details should move through the right review channel.
-          </p>
+          <p class="callout">${config.callout}</p>
         </div>
       </div>
     </main>
