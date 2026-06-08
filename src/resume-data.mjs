@@ -11,7 +11,7 @@ const sharedExperience = [
   },
   {
     company: "Habasit America",
-    role: "Software and Data Workflow Developer",
+    role: "CAD Drafter",
     period: "2022 - 2024",
     bullets: [
       "Built workflow automation, request tracking, data extraction, and reporting tools for manufacturing and operations teams.",
