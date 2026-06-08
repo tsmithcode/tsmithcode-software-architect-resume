@@ -9,6 +9,7 @@ import { resumeHtml } from "../src/resume-template.mjs";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const canonicalPdfPath = path.join(root, "dist", outputFileNames[0]);
+const generatedPdfPath = path.join(root, "out", outputFileNames[0]);
 
 function countPdfPages(filePath) {
   const pdf = readFileSync(filePath, "latin1");
@@ -18,6 +19,14 @@ function countPdfPages(filePath) {
 test("preserves the recovered two-page site PDF", () => {
   assert.equal(existsSync(canonicalPdfPath), true);
   assert.equal(countPdfPages(canonicalPdfPath), 2);
+});
+
+test("validates the regenerated PDF when generation has run", () => {
+  if (!existsSync(generatedPdfPath)) {
+    return;
+  }
+
+  assert.equal(countPdfPages(generatedPdfPath), 2);
 });
 
 test("keeps the TSmithCode public-safe resume posture", () => {
